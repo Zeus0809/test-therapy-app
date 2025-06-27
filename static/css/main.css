@@ -1,0 +1,31 @@
+/* Main styles for Charleston Therapy Center */
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    margin-top: 50px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 30px;
+    background-color: #fff;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    color: #2b6cb0;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #718096;
+    font-size: 0.9em;
+}

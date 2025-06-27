@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<link href="{{ url_for('static', filename='css/form.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12">
+        <h2 class="mb-4 text-center">Patient Registration</h2>
+        
+        <form action="{{ url_for('submit') }}" method="POST" class="needs-validation" novalidate>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="first_name" class="form-label required">First Name</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" required>
+                    <div class="invalid-feedback">
+                        Please provide a first name.
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="last_name" class="form-label required">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" required>
+                    <div class="invalid-feedback">
+                        Please provide a last name.
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="date_of_birth" class="form-label required">Date of Birth</label>
+                    <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid date of birth.
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="therapist_name" class="form-label required">Therapist Name</label>
+                    <input type="text" class="form-control" id="therapist_name" name="therapist_name" required>
+                    <div class="invalid-feedback">
+                        Please provide a therapist name.
+                    </div>
+                </div>
+                
+                <div class="col-12 mt-4">
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">Register Patient</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Form validation
+    (function() {
+        'use strict'
+        
+        // Fetch all forms that need validation
+        var forms = document.querySelectorAll('.needs-validation')
+        
+        // Loop and prevent submission for invalid forms
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+{% endblock %}

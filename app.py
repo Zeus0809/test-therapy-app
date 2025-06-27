@@ -1,5 +1,6 @@
-from flask import Flask
-from models import db
+from flask import Flask, render_template, request, redirect, url_for
+from models import db, Patient
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///patients.db'
@@ -8,16 +9,44 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize the app with the database
 db.init_app(app)
 
+# Add current date to all templates
+@app.context_processor
+def inject_now():
+    return {'now': datetime.now()}
+
 ### Backend Logic
+@app.route('/')
+def index():
+    return render_template('form.html')
 
+@app.route('/submit', methods=['POST'])
+def submit():
+    if request.method == 'POST':
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        date_of_birth = datetime.strptime(request.form['date_of_birth'], '%Y-%m-%d')
+        therapist_name = request.form['therapist_name']
+        
+        # Create new patient record
+        new_patient = Patient(fname=first_name, lname=last_name, dob=date_of_birth, therapist=therapist_name)
+        
+        # Add to database
+        db.session.add(new_patient)
+        db.session.commit()
+        
+        # Redirect to confirmation page
+        return redirect(url_for('confirmation'))
+
+@app.route('/confirmation')
+def confirmation():
+    return render_template('confirmation.html')
 ### /Backend Logic
-
-# Create the database tables if they don't exist
-with app.app_context():
-    db.create_all()
 
 def main():
     print("Hello from test-therapy-app!")
+    # Create the database tables if they don't exist
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
 
 if __name__ == "__main__":
