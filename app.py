@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from models import db, Patient
-from datetime import datetime
+from datetime import datetime, date
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///patients.db'
@@ -24,14 +24,42 @@ def submit():
     if request.method == 'POST':
         first_name = request.form['first_name']
         last_name = request.form['last_name']
-        date_of_birth = datetime.strptime(request.form['date_of_birth'], '%Y-%m-%d')
+        date_of_birth = datetime.strptime(request.form['date_of_birth'], '%Y-%m-%d').date()
         therapist_name = request.form['therapist_name']
         
         # Validate date of birth isn't in the future
-        if date_of_birth > datetime.now():
+        if date_of_birth > datetime.today().date():
             # Return to form with error message
             return render_template('form.html', 
                                   error="Date of birth cannot be in the future.",
+                                  first_name=first_name,
+                                  last_name=last_name,
+                                  therapist_name=therapist_name)
+        
+        # Check for existing patient with the same first name, last name, and date of birth
+        # Print the parameters we're searching for
+        print(f"Searching for: {first_name}, {last_name}, {date_of_birth}")
+        
+        # Use a more explicit query with debugging
+        all_patients = Patient.query.all()
+        print(f"Total patients in DB: {len(all_patients)}")
+        for p in all_patients:
+            print(f"DB Patient: {p.first_name} {p.last_name}, DOB: {p.date_of_birth}")
+    
+        # The query using explicit filter to handle date comparison
+        existing_patient = Patient.query.filter_by(
+            first_name=first_name,
+            last_name=last_name,
+            date_of_birth=date_of_birth
+        ).first()
+        
+        # Print the result
+        print(f"Found matching patient: {existing_patient}")
+        
+        if existing_patient:
+            # Patient already exists, return to form with error
+            return render_template('form.html',
+                                  error="A patient with this name and date of birth already exists.",
                                   first_name=first_name,
                                   last_name=last_name,
                                   therapist_name=therapist_name)
