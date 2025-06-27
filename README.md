@@ -1,5 +1,109 @@
-# test-therapy-app
-A test project for a Flask part-time position at Charleston Children's Therapy Center.
+# Charleston Therapy Center - Patient Registration System
+
+A Flask application for registering and managing therapy patients. This system allows staff to register new patients, validate their information, and avoid duplicate entries.
+
+## Features
+
+- Patient registration form with validation
+- Duplicate patient detection
+- Date of birth validation
+- Confirmation page with patient details
+- SQLite database for data persistence
+
+## Setup Instructions
+
+Follow these steps to run the project on your system:
+
+### Prerequisites
+
+- Python 3.11 or higher
+- `pip` or `uv` package manager
+
+### Installation
+
+1. **Extract the ZIP file** to your preferred location
+
+2. **Open a terminal/command prompt** and navigate to the project directory:
+   ```bash
+   cd path/to/test-therapy-app
+   ```
+
+3. **Create a virtual environment** (choose one method):
+
+   Using `venv` (built into Python):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+   OR using `uv` (if installed):
+   ```bash
+   uv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+4. **Install dependencies**:
+
+   Using uv (recommended):
+   ```bash
+   # Create and install dependencies from pyproject.toml
+   uv pip sync
+   ```
+
+   OR using pip:
+   ```bash
+   pip install flask flask-sqlalchemy
+   ```
+
+5. **Run the application**:
+   ```bash
+   python app.py
+   ```
+
+6. **Access the application**:
+   Open your browser and go to http://localhost:5000
+
+### Project Structure
+
+```
+test-therapy-app/
+├── app.py                  # Main Flask application
+├── models.py               # Database models
+├── static/                 # Static assets
+│   └── css/                # CSS stylesheets
+│       ├── confirmation.css
+│       ├── form.css
+│       └── main.css
+├── templates/              # HTML templates
+│   ├── base.html           # Base template
+│   ├── confirmation.html   # Confirmation page template
+│   └── form.html           # Patient registration form template
+└── instance/               # Instance-specific data
+    └── patients.db         # SQLite database (auto-generated)
+```
+
+### Database Information
+
+The application uses SQLite for data storage. The database file will be automatically created in the `instance/` folder when the application runs for the first time.
+
+To view the database contents:
+
+1. Install an SQLite browser like [DB Browser for SQLite](https://sqlitebrowser.org/)
+2. Open the `instance/patients.db` file
+
+OR use the command line:
+```bash
+sqlite3 instance/patients.db
+.mode column
+.headers on
+SELECT * FROM patient;
+```
+
+### Troubleshooting
+
+- **Connection issues**: Make sure port 5000 is not in use by another application
+- **Database issues**: If you encounter database errors, try deleting the `instance/patients.db` file and restarting the application
+- **Module not found errors**: Verify that the virtual environment is activated and all dependencies are installed
 
 ## Responses To Task Questions
 1. The app uses client-side validation for empty fields, server-side validation for DOB in the future, and server-side validation for a duplicate patient entry:
