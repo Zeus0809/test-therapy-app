@@ -35,16 +35,6 @@ def submit():
                                   first_name=first_name,
                                   last_name=last_name,
                                   therapist_name=therapist_name)
-        
-        # Check for existing patient with the same first name, last name, and date of birth
-        # Print the parameters we're searching for
-        print(f"Searching for: {first_name}, {last_name}, {date_of_birth}")
-        
-        # Use a more explicit query with debugging
-        all_patients = Patient.query.all()
-        print(f"Total patients in DB: {len(all_patients)}")
-        for p in all_patients:
-            print(f"DB Patient: {p.first_name} {p.last_name}, DOB: {p.date_of_birth}")
     
         # The query using explicit filter to handle date comparison
         existing_patient = Patient.query.filter_by(
@@ -52,9 +42,6 @@ def submit():
             last_name=last_name,
             date_of_birth=date_of_birth
         ).first()
-        
-        # Print the result
-        print(f"Found matching patient: {existing_patient}")
         
         if existing_patient:
             # Patient already exists, return to form with error
