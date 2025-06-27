@@ -17,6 +17,30 @@
             <h2 class="mb-3">Registration Successful!</h2>
             <p class="text-muted mb-4">The patient has been successfully registered in our system.</p>
             
+            <div class="patient-details mt-4 mb-4">
+                <h4>Patient Information</h4>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>First Name</th>
+                            <td>{{ patient.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Last Name</th>
+                            <td>{{ patient.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date of Birth</th>
+                            <td>{{ patient.date_of_birth.strftime('%B %d, %Y') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Therapist</th>
+                            <td>{{ patient.therapist_name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
             <div class="mt-4">
                 <a href="{{ url_for('index') }}" class="btn btn-outline-primary">Register Another Patient</a>
             </div>

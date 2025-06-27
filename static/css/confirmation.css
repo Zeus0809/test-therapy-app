@@ -22,3 +22,18 @@
     background-color: #2b6cb0;
     color: white;
 }
+
+.patient-details {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.patient-details table {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.patient-details th {
+    width: 40%;
+    background-color: #e9ecef;
+}

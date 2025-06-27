@@ -34,12 +34,14 @@ def submit():
         db.session.add(new_patient)
         db.session.commit()
         
-        # Redirect to confirmation page
-        return redirect(url_for('confirmation'))
+        # Redirect to confirmation page with the patient's ID
+        return redirect(url_for('confirmation', patient_id=new_patient._id))
 
-@app.route('/confirmation')
-def confirmation():
-    return render_template('confirmation.html')
+@app.route('/confirmation/<int:patient_id>')
+def confirmation(patient_id):
+    # Query the database to get the patient with the given ID
+    patient = Patient.query.get_or_404(patient_id)
+    return render_template('confirmation.html', patient=patient)
 ### /Backend Logic
 
 def main():
