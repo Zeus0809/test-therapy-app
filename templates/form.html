@@ -9,11 +9,17 @@
     <div class="col-12">
         <h2 class="mb-4 text-center">Patient Registration</h2>
         
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+        {% endif %}
+        
         <form action="{{ url_for('submit') }}" method="POST" class="needs-validation" novalidate>
             <div class="row g-3">
                 <div class="col-md-6">
                     <label for="first_name" class="form-label required">First Name</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" required>
+                    <input type="text" class="form-control" id="first_name" name="first_name" required value="{{ first_name if first_name }}">
                     <div class="invalid-feedback">
                         Please provide a first name.
                     </div>
@@ -21,7 +27,7 @@
                 
                 <div class="col-md-6">
                     <label for="last_name" class="form-label required">Last Name</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name" required>
+                    <input type="text" class="form-control" id="last_name" name="last_name" required value="{{ last_name if last_name }}">
                     <div class="invalid-feedback">
                         Please provide a last name.
                     </div>
@@ -37,7 +43,7 @@
                 
                 <div class="col-md-6">
                     <label for="therapist_name" class="form-label required">Therapist Name</label>
-                    <input type="text" class="form-control" id="therapist_name" name="therapist_name" required>
+                    <input type="text" class="form-control" id="therapist_name" name="therapist_name" required value="{{ therapist_name if therapist_name }}">
                     <div class="invalid-feedback">
                         Please provide a therapist name.
                     </div>

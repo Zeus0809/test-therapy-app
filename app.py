@@ -27,6 +27,15 @@ def submit():
         date_of_birth = datetime.strptime(request.form['date_of_birth'], '%Y-%m-%d')
         therapist_name = request.form['therapist_name']
         
+        # Validate date of birth isn't in the future
+        if date_of_birth > datetime.now():
+            # Return to form with error message
+            return render_template('form.html', 
+                                  error="Date of birth cannot be in the future.",
+                                  first_name=first_name,
+                                  last_name=last_name,
+                                  therapist_name=therapist_name)
+        
         # Create new patient record
         new_patient = Patient(fname=first_name, lname=last_name, dob=date_of_birth, therapist=therapist_name)
         
