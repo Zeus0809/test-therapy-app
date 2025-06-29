@@ -215,15 +215,13 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "flask" },
-    { name = "flask-sqlalchemy" },
-    { name = "sqlalchemy-stubs" },
+    { name = "flask-sqlalchemy" }
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "flask", specifier = "==2.3" },
-    { name = "flask-sqlalchemy", specifier = ">=3.1.1" },
-    { name = "sqlalchemy-stubs", specifier = ">=0.4" },
+    { name = "flask-sqlalchemy", specifier = ">=3.1.1" }
 ]
 
 [[package]]
