@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 from models import db, Patient
-from datetime import datetime, date
+from datetime import datetime
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///patients.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/patients.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize the app with the database

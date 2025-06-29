@@ -15,5 +15,8 @@ RUN uv sync
 # Copy application code
 COPY . .
 
+# Create data directory for SQLite
+RUN mkdir -p /data && chmod 777 /data
+
 # Run the application
 CMD ["python", "app.py"]
