@@ -2,21 +2,27 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install uv
-RUN pip install uv
+# Copy requirements first (for better layer caching)
+COPY requirements.txt .
 
-# Copy dependency files
-COPY pyproject.toml uv.lock ./
-COPY .python-version ./
+# Install dependencies with standard pip
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install dependencies using uv sync
-RUN uv sync
+# Create data directory for SQLite with proper permissions
+RUN mkdir -p /data && chown -R nobody:nogroup /data && chmod 777 /data
 
 # Copy application code
 COPY . .
 
-# Create data directory for SQLite
-RUN mkdir -p /data && chmod 777 /data
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PORT=8080
+
+# Run as non-root user for better security
+USER nobody
+
+# Expose the port
+EXPOSE 8080
 
 # Run the application
 CMD ["python", "app.py"]
